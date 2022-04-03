@@ -1,0 +1,145 @@
+{
+  "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Experiment, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+     "$values": [
+          {
+               "$type": "Doorsteps.Experiments.Models.Experiment, Doorsteps.Experiments.Models",
+               "name": "[Template Experiment]",
+               "description": "This is a template.",
+               "disabled": false,
+               "standard_questions": {
+               "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+               "$values": [
+               {
+                    "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                    "prompt": "What is your name?",
+                    "answer": "",
+                    "type": 1
+               },
+               {
+                    "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                    "prompt": "What is your email address?",
+                    "answer": "",
+                    "type": 1
+               },
+                    {
+                         "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                         "prompt": "What is your phone number?",
+                         "answer": "",
+                         "type": 1
+                    }
+               ]
+               },
+               "custom_questions": {
+               "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+               "$values": []
+               }
+          },
+          {
+               "$type": "Doorsteps.Experiments.Models.Experiment, Doorsteps.Experiments.Models",
+               "name": "Test Experiment 1",
+               "description": "This is a test.",
+               "disabled": false,
+               "standard_questions": {
+                    "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+                    "$values": [
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your name?",
+                              "answer": "",
+                              "type": 1
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your email address?",
+                              "answer": "",
+                              "type": 2
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your phone number?",
+                              "answer": "",
+                              "type": 2
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SelectAnOptionQuestion, Doorsteps.Experiments.Models",
+                              "possible_answers": {
+                                   "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                                   "$values": [
+                                        "Male",
+                                        "Female"
+                                   ]
+                              },
+                              "prompt": "What is gender?",
+                              "answer": "",
+                              "type": 3
+                         }
+                    ]
+               },
+               "custom_questions": {
+                    "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+                    "$values": [
+                         {
+                              "$type": "Doorsteps.Experiments.Models.MultiLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "Please provide a summary of yourself",
+                              "answer": "",
+                              "type": 2
+                         }
+                    ]
+               }
+          },
+          {
+               "$type": "Doorsteps.Experiments.Models.Experiment, Doorsteps.Experiments.Models",
+               "name": "Test Experiment 2",
+               "description": "This is a test.",
+               "disabled": false,
+               "standard_questions": {
+                    "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+                    "$values": [
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your name?",
+                              "answer": "",
+                              "type": 1
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your email address?",
+                              "answer": "",
+                              "type": 2
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your phone number?",
+                              "answer": "",
+                              "type": 2
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SelectAnOptionQuestion, Doorsteps.Experiments.Models",
+                              "possible_answers": {
+                                   "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                                   "$values": [
+                                        "Yes",
+                                        "No",
+                                        "Only on sunny days"
+                                   ]
+                              },
+                              "prompt": "Do you like sports?",
+                              "answer": "",
+                              "type": 3
+                         }
+                    ]
+               },
+               "custom_questions": {
+                    "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+                    "$values": [
+                         {
+                              "$type": "Doorsteps.Experiments.Models.MultiLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "Please describe your hobbies",
+                              "answer": "",
+                              "type": 2
+                         }
+                    ]
+               }
+          }
+     ]
+}

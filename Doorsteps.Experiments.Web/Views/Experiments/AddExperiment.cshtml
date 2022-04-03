@@ -1,0 +1,168 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@using Doorsteps.Experiments.Models
+@model Doorsteps.Experiments.Models.Experiment
+
+<!-- Add an experimentand questions that need to be answered -->
+@using (Html.BeginForm("AddExperiment", "Experiments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+     <!-- Experiments Heading -->
+     <h2><b>Add Experiment</b></h2>
+
+    <table border="0" cellpadding="0" cellspacing="0" style="padding-left: 15px; padding-bottom: 10px; width: 600px;">
+
+          <!-- Display name and description of experiment -->
+          <tr class="text" style="width: 100px;"><td class="text">&nbsp;Name:&nbsp;</td><td>@Html.TextBoxFor(model => model.Name)</td></tr>
+          <tr class="text" style="width: 100px;"><td>&nbsp;Description:&nbsp;</td><td>@Html.TextBoxFor(model => model.Description)</td></tr>
+                    
+          <!-- Display Add Question Heading and input fields to add question -->
+          <tr class="text"><td colspan="2" style="height: 30px; padding-top: 15px; padding-bottom: 10px;"><b>Add Question</b></td></tr>
+          <tr class="text">
+               <td colspan="2">
+
+                    <!-- Type of Question to Add -->
+                    <select name="questionCategory" class="text">
+                         <option>Standard</option>
+                         <option>Custom</option>
+                    </select>
+
+
+                    <!-- Type of Question to Add -->
+                    <select name="typeOfQuestion" class="text">
+                         <option>Single Line</option>
+                         <option>Multi Line</option>
+                         <option>Select An Option</option>
+                    </select>
+
+                    <!-- Add a Question-->
+                    <input type="submit" id="AddQuestion" name="operationMode" value="Add Question" class="text"/>
+
+               </td>
+          </tr>
+
+          <!-- Display Questionaire -->
+          <tr class="text"><td colspan="2" style="height: 30px; padding-top: 15px; padding-bottom: 10px;"><b>Questionaire</b></td></tr>
+          <tr class="text">
+               <td colspan="2">
+
+                    <table border="0" cellpadding="0" cellspacing="0" style="padding-left: 15px;">
+
+                         <!-- Display the standard questions header -->
+                         <tr class="text"><td colspan="2" style="height: 10px;"><b id="standard_questions">Standard Questions</b></td></tr>
+
+                         <!-- Display friendly message if no questions found -->
+                         @if (Model.StandardQuestionsToAsk.Count == 0)
+                         { 
+                              @:<tr class="text"><td colspan="2"><div class="Text">There are no questions found.</div></td></tr> 
+                         }
+
+                         <!-- Display standard questions that have been added -->
+                         @for(int i=0; i < Model.StandardQuestionsToAsk.Count; i++)
+                         {
+                              <tr class="text">
+                                   
+                                   <!-- Display Prompt -->
+                                   <td style="vertical-align: top; padding-top: 5px;">
+                                        <b>Prompt</b><br/>
+                                        @Html.TextBoxFor(model => model.StandardQuestionsToAsk[i].Prompt, null, new { Class = "Text" })&nbsp;&nbsp;&nbsp;
+                                   </td>
+
+                                   <!-- Display Question -->
+                                   <td class="text" style="vertical-align: top; padding-top: 5px;">
+
+                                        <!-- Display Answer Section -->
+                                        <b>Answer</b><br/>
+                                        @{ Type typeOfStandardQuestion = Model.StandardQuestionsToAsk[i].GetType(); }
+                                        @if (typeOfStandardQuestion.Equals(typeof(SingleLineQuestion)))      @Html.TextBoxFor(model      => model.StandardQuestionsToAsk[i].Answer, null, new { Class = "Text" })
+                                        @if (typeOfStandardQuestion.Equals(typeof(MultiLineQuestion)))       @Html.TextAreaFor(model     => model.StandardQuestionsToAsk[i].Answer, 5, 5, new { Class = "Text", Style="width: 300px; height: 100px;" })
+                                        
+                                        <!-- Type of Question -->
+                                        @Html.HiddenFor(model => model.StandardQuestionsToAsk[i].Type)
+
+                                        <!-- If question is 'Select An Option'' then allow users to add possible answers -->
+                                        @{
+                                             if (typeOfStandardQuestion.Equals(typeof(SelectAnOptionQuestion))) 
+                                             {
+                                                  SelectAnOptionQuestion selectAnOptionQuestion = (SelectAnOptionQuestion) Model.StandardQuestionsToAsk[i];
+                                                  for(int a = 0; a < selectAnOptionQuestion.PossibleAnswers.Count; a++)
+                                                  {
+                                                       @Html.TextBox("StandardQuestionsToAsk[" + i + "].PossibleAnswers[" + a + "]", null, new { Class = "Text" });
+                                                       <br/>
+                                                  }
+                                                  @Html.Hidden("StandardQuestionsToAsk[" + i + "].PossibleAnswers[" + selectAnOptionQuestion.PossibleAnswers.Count + "]", "<<TEMPLATE ANSWER>>")
+                                                  @:<input type="submit" id="AddAnswer" name="operationMode" value="Add Answer"/>
+                                             }
+                                        }
+
+                                   </td>
+                              </tr>
+                         }
+                         
+                         <!-- Display the custom questions header -->
+                         <tr class="text"><td colspan="2" style="height: 10px; padding-top: 15px;"><b id="custom_questions">Additional Questions</b></td></tr>
+                    
+                         <!-- Display friendly message if no questions found -->
+                         @if ((Model ?? new Experiment()).CustomQuestionsToAsk.Count == 0)
+                         {
+                              @:<tr class="text"><td colspan="2"><div class="Text">There are no questions found.</div></td></tr>
+                         }
+
+                         <!-- Display custom questions that have been added -->
+                         @for(int i=0; i < (Model ?? new Experiment()).CustomQuestionsToAsk.Count; i++)
+                         {
+                              <!-- Display buttons to add a question -->
+                              <tr class="text">
+                                   <td style="vertical-align: top; padding-top: 5px;">
+                                        <b>Prompt</b><br/>
+                                        @Html.TextBoxFor(model => model.CustomQuestionsToAsk[i].Prompt, null, new { Class = "Text" })&nbsp;&nbsp;&nbsp;
+                                   </td>
+                                   <td class="text" style="vertical-align: top; padding-top: 5px;">
+
+                                        <!-- Display Answer Section -->
+                                        <b>Answer</b><br/>
+                                        @{ Type typeOfCustomQuestion = (Model ?? new Experiment()).CustomQuestionsToAsk[i].GetType(); }
+                                        @if (typeOfCustomQuestion.Equals(typeof(SingleLineQuestion)))      @Html.TextBoxFor(model      => model.CustomQuestionsToAsk[i].Answer, null, new { Class = "Text" })
+                                        @if (typeOfCustomQuestion.Equals(typeof(MultiLineQuestion)))       @Html.TextAreaFor(model     => model.CustomQuestionsToAsk[i].Answer, 5, 5, new { Class = "Text", Style="width: 300px; height: 100px;" })
+
+                                        <!-- Type of Question -->
+                                        @Html.HiddenFor(model => model.CustomQuestionsToAsk[i].Type)
+
+                                        <!-- If question is 'Select An Option'' then allow users to add possible answers -->
+                                        @{
+                                             if (typeOfCustomQuestion.Equals(typeof(SelectAnOptionQuestion))) 
+                                             {
+                                                  SelectAnOptionQuestion selectAnOptionQuestion = (SelectAnOptionQuestion) (Model ?? new Experiment()).CustomQuestionsToAsk[i];
+                                                  for(int a = 0; a < selectAnOptionQuestion.PossibleAnswers.Count; a++)
+                                                  {
+                                                       @Html.TextBox("CustomQuestionsToAsk[" + i + "].PossibleAnswers[" + a + "]", null, new { Class = "Text" });
+                                                       <br/>
+                                                  }
+                                                  @Html.Hidden("CustomQuestionsToAsk[" + i + "].PossibleAnswers[" + selectAnOptionQuestion.PossibleAnswers.Count + "]", "<<TEMPLATE ANSWER>>")
+                                                  @:<input type="submit" id="AddAnswer" name="operationMode" value="Add Answer" Class="Text"/>
+                                             }
+                                        }
+
+                                   </td>
+                              </tr>
+
+                              <!-- Gap -->
+                              <tr><td colspan="2" sstyle="height: 50px"/></tr>
+
+                              <!-- Experiment we are working with -->
+                              @Html.HiddenFor(model => model.Name);
+                         }
+
+                    </table>
+               </td>
+          </tr>
+
+    </table>
+
+    <!-- Show button so user submit answers -->
+    <input type="submit" id="AddExperiment" name="operationMode" value="Add Experiment" class="Text" style="margin-top: 5px"/>
+}
+
+<!-- Display link to return to list of experiments -->
+<span class="text">
+     @Html.ActionLink("Return to Experiments", "ListExperiments", "Experiments")
+</span>

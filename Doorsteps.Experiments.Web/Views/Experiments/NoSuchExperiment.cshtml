@@ -1,0 +1,11 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<!-- Display error heading -->
+<h2><b>An error has occurred</b></h2>
+
+<!-- Display message that experiment does not exist and link to return to list of experiments -->
+<div class="text">
+     The experiment you are trying to access does not exist. Please provide an experiment that exists.
+     <br/><br/>
+     @Html.ActionLink("Return to Experiments", "ListExperiments", "Experiments")
+</div>

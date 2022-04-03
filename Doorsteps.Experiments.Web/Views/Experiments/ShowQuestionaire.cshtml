@@ -1,0 +1,70 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@using Doorsteps.Experiments.Models
+@model Doorsteps.Experiments.Models.Experiment
+
+<!-- Display name and description of experiment and questions that need to be answered -->
+@using (Html.BeginForm("SubmitResponses", "Experiments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+     <!-- Experiments Heading -->
+     <h2><b>Experiment Questionaire</b></h2>
+
+    <table border="0" cellpadding="0" cellspacing="0" style="padding-left: 15px;">
+
+          <!-- Display name of experiment -->
+          <tr class="text"><td class="text">&nbsp;Name:&nbsp;</td><td>@((Model??new Experiment()).Name)</td></tr>
+
+          <!-- Display description of experiment -->
+          <tr class="text"><td>&nbsp;Description:&nbsp;</td><td>@((Model??new Experiment()).Description)</td></tr>
+
+          <!-- Display the standard questions -->
+          <tr class="text"><td colspan="2" style="height: 10px; padding-top: 15px;"><b id="standard_questions">Standard Questions</b></td></tr>
+          @if ((Model??new Experiment()).StandardQuestionsToAsk.Count == 0)
+          { 
+               @:<tr class="text"><td colspan="2"><div class="Text">There are no questions found.</div></td></tr> 
+          }
+          @for(int i=0; i < (Model??new Experiment()).StandardQuestionsToAsk.Count; i++)
+          {
+               <tr class="text">
+                    <td style="vertical-align: middle; padding-top: 5px;">@((Model??new Experiment()).StandardQuestionsToAsk[i].Prompt)&nbsp;&nbsp;&nbsp;@Html.HiddenFor(model => model.StandardQuestionsToAsk[i].Prompt)</td>
+                    <td class="text" style="vertical-align: top; padding-top: 5px;">
+                         @if ((Model??new Experiment()).StandardQuestionsToAsk[i].GetType().Equals(typeof(SingleLineQuestion)))      @Html.TextBoxFor(model      => model.StandardQuestionsToAsk[i].Answer, null, new { Class = "Text" })
+                         @if ((Model??new Experiment()).StandardQuestionsToAsk[i].GetType().Equals(typeof(MultiLineQuestion)))       @Html.TextAreaFor(model     => model.StandardQuestionsToAsk[i].Answer, 5, 5, new { Class = "Text", Style="width: 300px; height: 100px;" })
+                         @if ((Model??new Experiment()).StandardQuestionsToAsk[i].GetType().Equals(typeof(SelectAnOptionQuestion)))  @Html.DropDownListFor(model => model.StandardQuestionsToAsk[i].Answer, new SelectList(((SelectAnOptionQuestion) (Model??new Experiment()).StandardQuestionsToAsk[i]).PossibleAnswers), null, new { Class = "Text" })
+                    </td>
+               </tr>
+          }
+
+          <!-- Display the custom questions -->
+          <tr class="text"><td colspan="2" style="height: 10px; padding-top: 15px;"><b id="custom_questions">Additional Questions</b></td></tr>
+          @if ((Model ?? new Experiment()).CustomQuestionsToAsk.Count == 0)
+          {
+               @:<tr class="text"><td colspan="2"><div class="Text">There are no questions found.</div></td></tr>
+          }
+          @for(int i=0; i < (Model??new Experiment()).CustomQuestionsToAsk.Count; i++)
+          {
+               <tr class="text">
+                    <td style="vertical-align: top; padding-top: 10px;">@((Model??new Experiment()).CustomQuestionsToAsk[i].Prompt)&nbsp;&nbsp;&nbsp;@Html.HiddenFor(model => model.CustomQuestionsToAsk[i].Prompt)</td>
+                    <td class="text" style="vertical-align: top; padding-top: 5px;">
+                         @if ((Model??new Experiment()).CustomQuestionsToAsk[i].GetType().Equals(typeof(SingleLineQuestion)))      @Html.TextBoxFor(model      => model.CustomQuestionsToAsk[i].Answer, null, new { Class = "Text" })
+                         @if ((Model??new Experiment()).CustomQuestionsToAsk[i].GetType().Equals(typeof(MultiLineQuestion)))       @Html.TextAreaFor(model     => model.CustomQuestionsToAsk[i].Answer, 5, 5, new { Class = "Text", Style="width: 300px; height: 100px;" })
+                         @if ((Model??new Experiment()).CustomQuestionsToAsk[i].GetType().Equals(typeof(SelectAnOptionQuestion)))  @Html.DropDownListFor(model => model.CustomQuestionsToAsk[i].Answer, new SelectList(((SelectAnOptionQuestion) (Model??new Experiment()).CustomQuestionsToAsk[i]).PossibleAnswers), null, new { Class = "Text" })
+                    </td>
+               </tr>
+
+               <!-- Experiment we are working with -->
+               @Html.HiddenFor(model => model.Name);
+          }
+          
+    </table>
+
+    <br/>
+
+    <!-- Show button so user submit answers -->
+    <input type="submit" id="SubmitResponses" value="Submit Responses" class="text"/>
+}
+
+<!-- Display link to return to list of experiments -->
+<span class="text">
+     @Html.ActionLink("Return to Experiments", "ListExperiments", "Experiments")
+</span>

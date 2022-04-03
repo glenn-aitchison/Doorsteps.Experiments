@@ -1,0 +1,11 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<!-- Display success heading -->
+<h2><b>Experiments Updated</b></h2>
+
+<!-- Display thank you for updating the status and link to return to list of experiments -->
+<div class="text">
+     Thank you for updating the status of the experiments. 
+     <br/><br/>
+     @Html.ActionLink("Return to Experiments", "ListExperiments", "Experiments")
+</div>

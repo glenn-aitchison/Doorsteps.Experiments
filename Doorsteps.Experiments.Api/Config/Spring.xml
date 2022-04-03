@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+     <!-- JSON data source for Experiments -->
+     <object name="myJsonDatasource" type="Doorsteps.Experiments.Dao.JsonDatasourceDao, Doorsteps.Experiments.Dao">
+          <property name="DataFilename"     value="Data\experiments_data.json"/>
+          <property name="ResponseFilename" value="Data\response_data.json"/>
+     </object>
+
+</objects>

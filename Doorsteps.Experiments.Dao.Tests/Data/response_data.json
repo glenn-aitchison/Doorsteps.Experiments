@@ -1,0 +1,58 @@
+{
+     "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Experiment, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+     "$values": [
+          {
+               "$type": "Doorsteps.Experiments.Models.Experiment, Doorsteps.Experiments.Models",
+               "name": "Test Experiment 1",
+               "description": "This is a test.",
+               "disabled": false,
+               "standard_questions": {
+                    "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+                    "$values": [
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your name?",
+                              "answer": "Joe Bloggs",
+                              "type": 1
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your email address?",
+                              "answer": "not@set.yet",
+                              "type": 2
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SingleLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "What is your phone number?",
+                              "answer": "12345",
+                              "type": 2
+                         },
+                         {
+                              "$type": "Doorsteps.Experiments.Models.SelectAnOptionQuestion, Doorsteps.Experiments.Models",
+                              "possible_answers": {
+                                   "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                                   "$values": [
+                                        "Male",
+                                        "Female"
+                                   ]
+                              },
+                              "prompt": "What is gender?",
+                              "answer": "Male",
+                              "type": 3
+                         }
+                    ]
+               },
+               "custom_questions": {
+                    "$type": "System.Collections.Generic.List`1[[Doorsteps.Experiments.Models.Question, Doorsteps.Experiments.Models]], System.Private.CoreLib",
+                    "$values": [
+                         {
+                              "$type": "Doorsteps.Experiments.Models.MultiLineQuestion, Doorsteps.Experiments.Models",
+                              "prompt": "Please provide a summary of yourself",
+                              "answer": "Outdoors",
+                              "type": 2
+                         }
+                    ]
+               }
+          }
+     ]
+}

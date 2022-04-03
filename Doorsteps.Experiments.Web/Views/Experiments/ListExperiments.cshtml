@@ -1,0 +1,52 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+@using Doorsteps.Experiments.Models
+@model List<Doorsteps.Experiments.Models.Experiment>
+
+<!-- Display experiments heading -->
+<h2><b>Experiments Overview</b></h2>
+
+<!-- Display friendly instructions to user -->
+<div class="text">
+     <ul>
+          <li>Please click on the name of the experiment you wish to respond to.</li>
+          <li>Tick the experiments you wish to disable then click <b>Update Experiments</b>.</li>
+     </ul>
+     <br/>
+</div>
+
+<!-- Gap -->
+<br/>
+
+<!-- Display a list of experiments and allow user to select which ones to enable or disable -->
+@using(Html.BeginForm("ToggleExperiments", "Experiments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+     <table border="0" cellpadding="0" cellspacing="0" style="padding-left: 15px;">
+
+          @for(int i = 0; i < Model.Count; i++)
+          {
+               <!-- Display name of experiment with tickbox -->
+               <tr class="text">
+                    <td style="width: 10px; vertical-align: middle;">
+                         @Html.CheckBoxFor(model => model[i].IsDisabled) 
+                    </td>
+                    <td style="vertical-align: middle;"><b>@Html.ActionLink(Model[i].Name, "ShowQuestionaire", "Experiments", new { experimentName = Model[i].Name.Replace(" ", "-") }, new { id = Model[i].Name.Replace(" ", "-") })</b></td>
+               </tr>
+
+               <!-- Display description of experiment -->
+               <tr class="text"><td/><td>@(Model[i].Description)</td></tr>
+
+               <!-- Provide name of experiment so we know what experiment we are toggling -->
+               @Html.HiddenFor(model => model[i].Name)
+
+               <tr><td colspan="2" style="height: 5px"/></tr>
+          }
+          
+     </table>
+
+     <!-- Show button that allows user to enable/disable experiments -->
+     <input type="button" id="AddExperiment" value="Add Experiment" class="Text" style="margin-top: 10px" onClick="javascript:location.href='/AddExperiment'"/>
+
+     <!-- Show button that allows user to enable/disable experiments -->
+     <input type="submit" id="UpdateExperiments" value="Update Experiments" class="Text" style="margin-top: 10px"/>
+}
